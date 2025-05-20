@@ -19,7 +19,7 @@ const LoginForm = () => {
     }
   
     try {
-      const loginResponse = await fetch('http://localhost:5000/api/login', {
+      const loginResponse = await fetch('https://csit314-backend.onrender.com:5000/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -53,7 +53,7 @@ const LoginForm = () => {
     }
   
     try {
-      const registerResponse = await fetch('http://localhost:5000/api/register', {
+      const registerResponse = await fetch('https://csit314-backend.onrender.com:5000/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password, role }),
