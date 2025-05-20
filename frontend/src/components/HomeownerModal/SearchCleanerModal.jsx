@@ -23,22 +23,23 @@ const SearchCleanerModal = ({
             cleaners.map((cleaner) => (
               <div className="col-md-4 mb-4" key={cleaner.id}>
                 <div className="card shadow h-100">
-                  <img
-                    src={`http://localhost:5000/${cleaner.image_path || "images/default.jpg"}`}
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = "http://localhost:5000/images/default.jpg";
-                    }}
-                    alt={`${cleaner.name}'s profile`}
-                    className="card-img-top"
-                    style={{
-                      height: "230px",
-                      objectFit: "contain",
-                      backgroundColor: "#f8f9fa",
-                      borderTopLeftRadius: "0.5rem",
-                      borderTopRightRadius: "0.5rem",
-                    }}
-                  />
+                 <img
+                      src={`https://csit314-backend.onrender.com/${cleaner.image_path || "images/default.jpg"}`}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "https://csit314-backend.onrender.com/images/default.jpg";
+                      }}
+                      alt={`${cleaner.name}'s profile`}
+                      className="card-img-top"
+                      style={{
+                        height: "230px",
+                        objectFit: "contain",
+                        backgroundColor: "#f8f9fa",
+                        borderTopLeftRadius: "0.5rem",
+                        borderTopRightRadius: "0.5rem",
+                      }}
+                    />
+
                   <div className="card-body text-center">
                     <h5 className="card-title">{cleaner.name}</h5>
                     <p>
