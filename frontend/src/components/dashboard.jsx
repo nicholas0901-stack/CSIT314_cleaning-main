@@ -1232,7 +1232,6 @@ const [userError, setUserError] = useState("");
           tempProfile={tempProfile}
           setTempProfile={setTempProfile}
           previewImageUrl={previewImageUrl}
-          setPreviewImageUrl={setPreviewImageUrl}  
           services={services}
           newService={newService}
           setNewService={setNewService}
