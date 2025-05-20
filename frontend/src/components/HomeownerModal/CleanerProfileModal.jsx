@@ -21,7 +21,7 @@ const CleanerProfileModal = ({
 }) => {
   const handleFavourite = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/favourites", {
+      const res = await fetch("https://csit314-backend.onrender.com/api/favourites", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -55,10 +55,10 @@ const CleanerProfileModal = ({
           <>
             <div className="card shadow-sm mb-4">
               <img
-                src={`http://localhost:5000/${selectedCleaner.image_path || 'images/default.jpg'}`}
+                src={`https://csit314-backend.onrender.com/${selectedCleaner.image_path || 'images/default.jpg'}`}
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = 'http://localhost:5000/images/default.jpg';
+                  e.target.src = 'https://csit314-backend.onrender.com/images/default.jpg';
                 }}
                 className="card-img-top"
                 alt={`${selectedCleaner.name}'s Profile`}
