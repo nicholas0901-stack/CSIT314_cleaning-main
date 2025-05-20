@@ -28,12 +28,15 @@ const ManageServicesModal = ({
 
         {(previewImageUrl || tempProfile?.image_path) && (
           <div className="text-center mb-4">
-            <img
-              src={previewImageUrl || `http://localhost:5000/${tempProfile.image_path}`}
+           <img
+              src={
+                previewImageUrl ||
+                `https://csit314-backend.onrender.com/${tempProfile.image_path || "images/default.jpg"}`
+              }
               alt="Cleaner Profile"
               onError={(e) => {
                 e.target.onerror = null;
-                e.target.src = "http://localhost:5000/images/default.jpg";
+                e.target.src = "https://csit314-backend.onrender.com/images/default.jpg";
               }}
               style={{
                 width: "380px",
