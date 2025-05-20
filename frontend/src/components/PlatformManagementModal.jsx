@@ -69,7 +69,7 @@ const PlatformManagementModal = ({ show, onHide }) => {
   const handleGenerateReport = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/reports?reportType=${reportType}`);
+      const res = await fetch(`https://csit314-backend.onrender.com/api/admin/reports?reportType=${reportType}`);
       const data = await res.json();
       if (data.success) {
         setReportData(data.report);
@@ -85,7 +85,7 @@ const PlatformManagementModal = ({ show, onHide }) => {
 
   const fetchServices = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/admin/services");
+      const res = await fetch("https://csit314-backend.onrender.com/api/admin/services");
       const text = await res.text();
       try {
         const data = JSON.parse(text);
@@ -106,7 +106,7 @@ const PlatformManagementModal = ({ show, onHide }) => {
 
   const handleDeleteService = async (id) => {
     try {
-      await fetch(`http://localhost:5000/api/cleaner/services/${id}`, { method: "DELETE" });
+      await fetch(`https://csit314-backend.onrender.com/api/cleaner/services/${id}`, { method: "DELETE" });
       fetchServices();
       toast.success("Service deleted successfully");
     } catch (err) {
@@ -117,7 +117,7 @@ const PlatformManagementModal = ({ show, onHide }) => {
 
   const handleUpdateService = async (id, { service_name, price }) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/cleaner/services/${id}`, {
+      const res = await fetch(`https://csit314-backend.onrender.com/api/cleaner/services/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ service_name, price })
@@ -142,7 +142,7 @@ const PlatformManagementModal = ({ show, onHide }) => {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/admin/services", {
+      const res = await fetch("https://csit314-backend.onrender.com/api/admin/services", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ cleaner_id, service_name, price })
