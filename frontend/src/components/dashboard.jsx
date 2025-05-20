@@ -77,7 +77,7 @@ const [showCleanerNotificationModal, setShowCleanerNotificationModal] = useState
    
 const pollBookingStatusUpdates = async () => {
   try {
-    const res = await fetch(`http://localhost:5000/api/bookings/all/${userId}`);
+    const res = await fetch(`https://csit314-backend.onrender.com/api/bookings/all/${userId}`);
     const data = await res.json();
 
     if (data.success) {
@@ -129,7 +129,7 @@ const pollBookingStatusUpdates = async () => {
 
 const pollCleanerNotifications = async () => {
   try {
-    const res = await fetch(`http://localhost:5000/api/bookings/cleaner/all/${userId}`);
+    const res = await fetch(`https://csit314-backend.onrender.com/api/bookings/cleaner/all/${userId}`);
     const data = await res.json();
 
     if (data.success) {
@@ -198,7 +198,7 @@ useEffect(() => {
   const initializeStatusMap = async () => {
     try {
       if (role === "Homeowner") {
-        const res = await fetch(`http://localhost:5000/api/bookings/all/${userId}`);
+        const res = await fetch(`https://csit314-backend.onrender.com/api/bookings/all/${userId}`);
         const data = await res.json();
         if (data.success) {
           const map = {};
@@ -206,7 +206,7 @@ useEffect(() => {
           setLatestBookingStatus(map);
         }
       } else if (role === "Cleaner") {
-        const res = await fetch(`http://localhost:5000/api/bookings/cleaner/${userId}/accepted`);
+        const res = await fetch(`https://csit314-backend.onrender.com/api/bookings/cleaner/${userId}/accepted`);
         const data = await res.json();
         if (data.success) {
           const map = {};
@@ -280,7 +280,7 @@ useEffect(() => {
     }
   
     try {
-      const res = await fetch('http://localhost:5000/api/services', {
+      const res = await fetch('https://csit314-backend.onrender.com/api/services', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -318,7 +318,7 @@ useEffect(() => {
   }
 
   try {
-    const response = await fetch("http://localhost:5000/api/cleaner/profile", {
+    const response = await fetch("https://csit314-backend.onrender.com/api/cleaner/profile", {
       method: "POST",
       body: formData,
     });
@@ -346,7 +346,7 @@ return jobDate === selectedDate.toDateString();
   });
   const handleDeleteService = async (serviceId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/services/${serviceId}`, {
+      const res = await fetch(`https://csit314-backend.onrender.com/api/services/${serviceId}`, {
         method: 'DELETE',
       });
   
@@ -363,7 +363,7 @@ return jobDate === selectedDate.toDateString();
   
   const fetchServices = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/services/${cleanerId}`);
+      const res = await fetch(`https://csit314-backend.onrender.com/api/services/${cleanerId}`);
       const data = await res.json();
       if (data.success) {
         setServices(data.services);
@@ -375,7 +375,7 @@ return jobDate === selectedDate.toDateString();
   
   const fetchProfile = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/profile/${cleanerId}`);
+      const res = await fetch(`https://csit314-backend.onrender.com/api/profile/${cleanerId}`);
       const data = await res.json();
       if (data.success && data.profile) {
         setProfile(data.profile);
@@ -389,7 +389,7 @@ return jobDate === selectedDate.toDateString();
 
   const fetchUsers = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/users');
+      const res = await fetch('https://csit314-backend.onrender.com/api/users');
       const data = await res.json();
       if (data.success) {
         setUsers(data.users);
@@ -417,7 +417,7 @@ return jobDate === selectedDate.toDateString();
 
   // Re-fetch updated profile from backend
   try {
-    const res = await fetch(`http://localhost:5000/api/profile/${cleanerId}`);
+    const res = await fetch(`https://csit314-backend.onrender.com/api/profile/${cleanerId}`);
     const data = await res.json();
     if (data.success && data.profile) {
       setTempProfile({
@@ -431,7 +431,7 @@ return jobDate === selectedDate.toDateString();
       });
 
       if (data.profile.image_path) {
-        setPreviewImageUrl(`http://localhost:5000/${data.profile.image_path}?t=${Date.now()}`);
+        setPreviewImageUrl(`https://csit314-backend.onrender.com/${data.profile.image_path}?t=${Date.now()}`);
       }
     }
   } catch (err) {
@@ -453,7 +453,7 @@ return jobDate === selectedDate.toDateString();
       if (minPrice != null) queryParams.append("minPrice", minPrice);
       if (maxPrice != null) queryParams.append("maxPrice", maxPrice);
   
-      const url = `http://localhost:5000/api/cleaners?${queryParams.toString()}`;
+      const url = `https://csit314-backend.onrender.com/api/cleaners?${queryParams.toString()}`;
   
       const res = await fetch(url);
       const data = await res.json();
@@ -470,7 +470,7 @@ return jobDate === selectedDate.toDateString();
   const handleViewProfile = async (cleaner) => {
     try {
       const res = await fetch(
-        `http://localhost:5000/api/cleaner/details/${cleaner.id}?homeownerId=${userId}`
+        `https://csit314-backend.onrender.com/api/cleaner/details/${cleaner.id}?homeownerId=${userId}`
       );
       const data = await res.json();
   
@@ -503,7 +503,7 @@ return jobDate === selectedDate.toDateString();
     }
   
     try {
-      const response = await fetch('http://localhost:5000/api/bookings', {
+      const response = await fetch('https://csit314-backend.onrender.com/api/bookings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -532,7 +532,7 @@ return jobDate === selectedDate.toDateString();
   
   const handleAcceptRequest = async (bookingId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/bookings/${bookingId}/accept`, {
+      const res = await fetch(`https://csit314-backend.onrender.com/api/bookings/${bookingId}/accept`, {
         method: 'PUT',
       });
       const data = await res.json();
@@ -557,7 +557,7 @@ return jobDate === selectedDate.toDateString();
   // Fetch accepted bookings
   const fetchAcceptedBookings = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/bookings/accepted/${userId}`);
+      const res = await fetch(`https://csit314-backend.onrender.com/api/bookings/accepted/${userId}`);
       const data = await res.json();
       if (data.success) {
         setAcceptedBookings(data.bookings);
@@ -573,7 +573,7 @@ return jobDate === selectedDate.toDateString();
   
   const handleDeclineRequest = async (bookingId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/bookings/${bookingId}/decline`, {
+      const res = await fetch(`https://csit314-backend.onrender.com/api/bookings/${bookingId}/decline`, {
         method: 'PUT',
       });
       const data = await res.json();
@@ -596,7 +596,7 @@ return jobDate === selectedDate.toDateString();
   // Define it at the top level in the component
   const fetchAcceptedJobs = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/bookings/cleaner/${cleanerId}/accepted`);
+      const response = await fetch(`https://csit314-backend.onrender.com/api/bookings/cleaner/${cleanerId}/accepted`);
       const data = await response.json();
       if (data.success) {
         setAcceptedJobs(data.bookings); // this now includes 'Accepted' and 'Completed'
@@ -610,7 +610,7 @@ return jobDate === selectedDate.toDateString();
   
   const fetchJobRequests = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/bookings/${cleanerId}`);
+      const response = await fetch(`https://csit314-backend.onrender.com/api/bookings/${cleanerId}`);
       const data = await response.json();
       if (data.success) {
         setRequests(data.requests);  // Update the modal to show requests
@@ -622,7 +622,7 @@ return jobDate === selectedDate.toDateString();
   
   const fetchFavourites = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/homeowner/${userId}/favourites`);
+      const res = await fetch(`https://csit314-backend.onrender.com/api/homeowner/${userId}/favourites`);
       const data = await res.json();
       if (data.success) {
         setFavourites(data.favourites);
@@ -636,7 +636,7 @@ return jobDate === selectedDate.toDateString();
 
   const handleCleanerWithdraw = async (amount) => {
   try {
-    const res = await fetch("http://localhost:5000/api/wallet/withdraw", {
+    const res = await fetch("https://csit314-backend.onrender.com/api/wallet/withdraw", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userId: cleanerId, amount }),  // use cleanerId
@@ -658,7 +658,7 @@ return jobDate === selectedDate.toDateString();
   // Fetch wallet balance
 const fetchWalletBalance = async () => {
   try {
-    const res = await fetch(`http://localhost:5000/api/wallet/${userId}`);
+    const res = await fetch(`https://csit314-backend.onrender.com/api/wallet/${userId}`);
     ;
     const data = await res.json();
     if (data.success) {
@@ -675,7 +675,7 @@ const handleTopUp = async () => {
   }
 
   try {
-    const res = await fetch("http://localhost:5000/api/wallet/topup", {
+    const res = await fetch("https://csit314-backend.onrender.com/api/wallet/topup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userId, amount: parseFloat(topUpAmount) }),
@@ -696,7 +696,7 @@ const handleTopUp = async () => {
 useEffect(() => {
   const fetchAcceptedJobs = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/bookings/cleaner/${cleanerId}/accepted`);
+      const response = await fetch(`https://csit314-backend.onrender.com/api/bookings/cleaner/${cleanerId}/accepted`);
       const data = await response.json();
       if (data.success) setAcceptedJobs(data.bookings);
     } catch (error) {
@@ -720,7 +720,7 @@ useEffect(() => {
 
 const handlePayCleaner = async (job) => {
   try {
-    const res = await fetch("http://localhost:5000/api/payments", {
+    const res = await fetch("https://csit314-backend.onrender.com/api/payments", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -753,7 +753,7 @@ const handlePayCleaner = async (job) => {
 
 const fetchCleanerPayments = async () => {
   try {
-    const res = await fetch(`http://localhost:5000/api/payments/cleaner/${cleanerId}`);
+    const res = await fetch(`https://csit314-backend.onrender.com/api/payments/cleaner/${cleanerId}`);
     const data = await res.json();
     if (data.success) {
       setCleanerPayments(data.payments);
@@ -767,7 +767,7 @@ const fetchCleanerPayments = async () => {
 
 const fetchCleanerWallet = async () => {
   try {
-    const res = await fetch(`http://localhost:5000/api/wallet/${cleanerId}`);
+    const res = await fetch(`https://csit314-backend.onrender.com/api/wallet/${cleanerId}`);
     const data = await res.json();
     if (data.success) {
       setCleanerWalletBalance(data.balance);
@@ -787,14 +787,14 @@ const [preferences, setPreferences] = useState({
 const [showPreferencesModal, setShowPreferencesModal] = useState(false);
 
 const fetchPreferences = async () => {
-  const res = await fetch(`http://localhost:5000/api/preferences/${userId}`);
+  const res = await fetch(`https://csit314-backend.onrender.com/api/preferences/${userId}`);
   const data = await res.json();
   if (data.success) setPreferences(data.preferences);
 };
 
 const savePreferences = async () => {
   try {
-    await fetch(`http://localhost:5000/api/preferences/${userId}`, {
+    await fetch(`https://csit314-backend.onrender.com/api/preferences/${userId}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(preferences),
@@ -809,7 +809,7 @@ const savePreferences = async () => {
 
 const rateCleaner = async (bookingId, rating, comment) => {
   try {
-    const res = await fetch(`http://localhost:5000/api/bookings/${bookingId}/rate`, {
+    const res = await fetch(`https://csit314-backend.onrender.com/api/bookings/${bookingId}/rate`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ rating, comment }),
@@ -830,7 +830,7 @@ const rateCleaner = async (bookingId, rating, comment) => {
 // mark complete jobs
 const markJobAsCompleted = async (bookingId) => {
   try {
-    const res = await fetch(`http://localhost:5000/api/bookings/${bookingId}/complete`, {
+    const res = await fetch(`https://csit314-backend.onrender.com/api/bookings/${bookingId}/complete`, {
       method: "PUT",
     });
     const data = await res.json();
@@ -849,7 +849,7 @@ const markJobAsCompleted = async (bookingId) => {
 
 const fetchCleanerReviews = async (cleanerId, cleanerName) => {
   try {
-    const res = await fetch(`http://localhost:5000/api/cleaners/${cleanerId}/reviews`);
+    const res = await fetch(`https://csit314-backend.onrender.com/api/cleaners/${cleanerId}/reviews`);
     const data = await res.json();
 
     if (data.success) {
@@ -868,7 +868,7 @@ const fetchCleanerReviews = async (cleanerId, cleanerName) => {
 
 const fetchCompletedServices = async () => {
   try {
-    const res = await fetch(`http://localhost:5000/api/bookings/completed/${userId}`);
+    const res = await fetch(`https://csit314-backend.onrender.com/api/bookings/completed/${userId}`);
     const data = await res.json();
     if (data.success) {
       setCompletedBookings(data.bookings); // you must define this state
@@ -883,7 +883,7 @@ useEffect(() => {
   if (showScheduleModal) {
     const fetchAcceptedJobs = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/bookings/cleaner/${cleanerId}/accepted`);
+        const response = await fetch(`https://csit314-backend.onrender.com/api/bookings/cleaner/${cleanerId}/accepted`);
         const data = await response.json();
         if (data.success) setAcceptedJobs(data.bookings);
       } catch (error) {
@@ -897,7 +897,7 @@ useEffect(() => {
   if (showWalletModal) {
     const fetchWalletBalance = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/wallet/${userId}`);
+        const res = await fetch(`https://csit314-backend.onrender.com/api/wallet/${userId}`);
         const data = await res.json();
         if (data.success) {
           setWalletBalance(data.balance);
