@@ -13,10 +13,14 @@ const AdminController = require('./AdminController');
 
 const app = express();
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: [
+    'http://localhost:3000',                      // for local testing
+    'https://csit314-cleaning.onrender.com'       // 👈 your deployed frontend
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
+
 app.use(express.json());
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
@@ -122,7 +126,8 @@ app.get('/api/bookings/cleaner/all/:cleanerId', (req, res) => bookingController.
 
 // ===================== SERVER ===================== //
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
 
 module.exports = app;
