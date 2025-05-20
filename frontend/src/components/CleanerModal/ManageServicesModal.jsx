@@ -26,24 +26,28 @@ const ManageServicesModal = ({
           Easily manage your cleaning services, skills, experience, and work preferences.
         </p>
 
-        {(previewImageUrl || tempProfile?.image_path) && (
-          <div className="text-center mb-4">
-            <img
-              src={previewImageUrl || `https://csit314-backend.onrender.com/${tempProfile.image_path}`}
-              alt="Cleaner Profile"
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = "https://csit314-backend.onrender.com/images/default.jpg";
-              }}
-              style={{
-                width: "380px",
-                height: "500px",
-                objectFit: "cover",
-                border: "2px solid #dee2e6",
-              }}
-            />
-          </div>
-        )}
+{(previewImageUrl || tempProfile?.image_path) && (
+  <div className="text-center mb-4">
+    <img
+      src={
+        previewImageUrl ||
+        `https://csit314-backend.onrender.com/${tempProfile.image_path}`
+      }
+      alt="Cleaner Profile"
+      onError={(e) => {
+        e.target.onerror = null;
+        e.target.src = "https://csit314-backend.onrender.com/images/default.jpg";
+      }}
+      style={{
+        width: "380px",
+        height: "500px",
+        objectFit: "cover",
+        border: "2px solid #dee2e6",
+      }}
+    />
+  </div>
+)}
+
 
         <Form onSubmit={handleSaveAll}>
           <h5 className="fw-bold mb-3">Your Profile Details</h5>
