@@ -93,11 +93,16 @@ class CleanerController {
 }
 
   
-    // Fetch cleaner profile
-    getProfile(req, res) {
+      // Fetch cleaner profile (with image_path from users)
+getProfile(req, res) {
   const cleanerId = req.params.cleanerId;
 
-  const sql = `SELECT * FROM cleaner_profiles WHERE cleaner_id = ?`;
+  const sql = `
+    SELECT cp.*, u.image_path
+    FROM cleaner_profiles cp
+    JOIN users u ON cp.cleaner_id = u.id
+    WHERE cp.cleaner_id = ?
+  `;
 
   this.db.get(sql, [cleanerId], (err, row) => {
     if (err) {
@@ -106,7 +111,7 @@ class CleanerController {
     }
 
     if (row) {
-      res.json({ success: true, profile: row }); //  row must include is_active
+      res.json({ success: true, profile: row });
     } else {
       res.json({ success: false, message: "Profile not found" });
     }
