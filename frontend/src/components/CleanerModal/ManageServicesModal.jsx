@@ -28,22 +28,21 @@ const ManageServicesModal = ({
 
         {(previewImageUrl || tempProfile?.image_path) && (
           <div className="text-center mb-4">
-            <img
-                      src={`https://csit314-backend.onrender.com/${cleaner.image_path || "images/default.jpg"}`}
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = "https://csit314-backend.onrender.com/images/default.jpg";
-                      }}
-                      alt={`${cleaner.name}'s profile`}
-                      className="card-img-top"
-                      style={{
-                        height: "230px",
-                        objectFit: "contain",
-                        backgroundColor: "#f8f9fa",
-                        borderTopLeftRadius: "0.5rem",
-                        borderTopRightRadius: "0.5rem",
-                      }}
-                    />
+           <img
+              src={previewImageUrl || `https://csit314-backend.onrender.com/${tempProfile.image_path}`}
+              alt="Cleaner Profile"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "https://csit314-backend.onrender.com/images/default.jpg";
+              }}
+              style={{
+                width: "380px",
+                height: "500px",
+                objectFit: "cover",
+                border: "2px solid #dee2e6",
+              }}
+            />}
+            />
           </div>
         )}
 
