@@ -15,7 +15,7 @@ const app = express();
 app.use(cors({
   origin: [
     'http://localhost:3000',                      // for local testing
-    'https://csit314-cleaning-main.onrender.com/'       // 👈 your deployed frontend
+    'https://csit314-cleaning-main.onrender.com'       // 👈 your deployed frontend
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
