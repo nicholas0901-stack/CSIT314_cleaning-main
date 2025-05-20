@@ -27,24 +27,30 @@ const ManageServicesModal = ({
         </p>
 
         {(previewImageUrl || tempProfile?.image_path) && (
-          <div className="text-center mb-4">
-          <img
-              src={`https://csit314-backend.onrender.com/${tempProfile.image_path || "images/default.jpg"}`}
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = "https://csit314-backend.onrender.com/images/default.jpg";
-              }}
-              alt="Cleaner Profile"
-              className="card-img-top"
-              style={{
-                height: "230px",
-                objectFit: "contain",
-                backgroundColor: "#f8f9fa",
-                borderTopLeftRadius: "0.5rem",
-                borderTopRightRadius: "0.5rem",
-              }}
-            />
-          </div>
+       <div className="text-center mb-4">
+  <img
+    src={
+      previewImageUrl ||
+      (tempProfile?.image_path
+        ? `https://csit314-backend.onrender.com/${tempProfile.image_path}`
+        : "https://csit314-backend.onrender.com/images/default.jpg")
+    }
+    onError={(e) => {
+      e.target.onerror = null;
+      e.target.src = "https://csit314-backend.onrender.com/images/default.jpg";
+    }}
+    alt="Cleaner Profile"
+    className="card-img-top"
+    style={{
+      height: "230px",
+      objectFit: "contain",
+      backgroundColor: "#f8f9fa",
+      borderTopLeftRadius: "0.5rem",
+      borderTopRightRadius: "0.5rem",
+    }}
+  />
+</div>
+
         )}
 
         <Form onSubmit={handleSaveAll}>
