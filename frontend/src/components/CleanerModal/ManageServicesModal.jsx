@@ -8,7 +8,6 @@ const ManageServicesModal = ({
   tempProfile,
   setTempProfile,
   previewImageUrl,
-  setPreviewImageUrl,
   services,
   newService,
   setNewService,
@@ -30,22 +29,21 @@ const ManageServicesModal = ({
         {(previewImageUrl || tempProfile?.image_path) && (
           <div className="text-center mb-4">
             <img
-              src={previewImageUrl || `https://csit314-backend.onrender.com/${tempProfile.image_path || "images/default.jpg"}`}
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = "https://csit314-backend.onrender.com/images/default.jpg";
-              }}
-              alt="Cleaner Profile"
-              className="card-img-top"
-              style={{
-                height: "230px",
-                objectFit: "contain",
-                backgroundColor: "#f8f9fa",
-                borderTopLeftRadius: "0.5rem",
-                borderTopRightRadius: "0.5rem",
-              }}
-            />
-
+                      src={`https://csit314-backend.onrender.com/${cleaner.image_path || "images/default.jpg"}`}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "https://csit314-backend.onrender.com/images/default.jpg";
+                      }}
+                      alt={`${cleaner.name}'s profile`}
+                      className="card-img-top"
+                      style={{
+                        height: "230px",
+                        objectFit: "contain",
+                        backgroundColor: "#f8f9fa",
+                        borderTopLeftRadius: "0.5rem",
+                        borderTopRightRadius: "0.5rem",
+                      }}
+                    />
           </div>
         )}
 
@@ -130,105 +128,90 @@ const ManageServicesModal = ({
           </div>
 
           <hr className="my-4" />
-          <div className="d-flex justify-content-between align-items-center mb-3">
-            <h5 className="fw-bold mb-0">Edit Your Profile</h5>
-            <Form.Group className="form-check form-switch m-0">
-              <Form.Check
-                type="switch"
-                id="isActiveSwitch"
-                label={tempProfile.is_active ? "Active" : "Deactivated"}
-                checked={tempProfile.is_active || false}
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <h5 className="fw-bold mb-0">Edit Your Profile</h5>
+              <Form.Group className="form-check form-switch m-0">
+                <Form.Check
+                  type="switch"
+                  id="isActiveSwitch"
+                  label={tempProfile.is_active ? "Active" : "Deactivated"}
+                  checked={tempProfile.is_active || false}
+                  onChange={(e) => {
+                    const isActive = e.target.checked;
+                    setTempProfile((prev) => ({
+                      ...prev,
+                      is_active: isActive
+                    }));
+                  }}
+                />
+              </Form.Group>
+            </div>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Upload Profile Image</Form.Label>
+              <Form.Control
+                type="file"
+                accept="image/*"
+                disabled={!tempProfile.is_active}
                 onChange={(e) => {
-                  const isActive = e.target.checked;
+                  const file = e.target.files[0];
                   setTempProfile((prev) => ({
                     ...prev,
-                    is_active: isActive
+                    imageFile: file
                   }));
                 }}
               />
             </Form.Group>
-          </div>
 
-         <Form.Group className="mb-3">
-  <Form.Label>Upload Profile Image</Form.Label>
-  <Form.Control
-    type="file"
-    accept="image/*"
-    disabled={!tempProfile.is_active}
-    onChange={(e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const previewUrl = URL.createObjectURL(file);
+            <Form.Group className="mb-3">
+              <Form.Label>Bio</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={2}
+                disabled={!tempProfile.is_active}
+                placeholder="e.g. Experienced in residential cleaning, passionate about customer satisfaction."
+                value={tempProfile.skills || ""}
+                onChange={(e) => setTempProfile({ ...tempProfile, skills: e.target.value })}
+              />
+            </Form.Group>
 
-        // Set imageFile into tempProfile
-        setTempProfile((prev) => ({
-          ...prev,
-          imageFile: file
-        }));
+            <Form.Group className="mb-3">
+              <Form.Label>Experience (Years)</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="e.g. 3"
+                disabled={!tempProfile.is_active}
+                value={tempProfile.experience || ""}
+                onChange={(e) => setTempProfile({ ...tempProfile, experience: e.target.value })}
+              />
+            </Form.Group>
 
-        // Set preview image URL for display
-        setPreviewImageUrl(previewUrl);
+            <Form.Group className="mt-3">
+              <Form.Label>Preferred Area</Form.Label>
+              <Form.Select
+                disabled={!tempProfile.is_active}
+                value={tempProfile.preferred_areas || ""}
+                onChange={(e) => setTempProfile({ ...tempProfile, preferred_areas: e.target.value })}
+              >
+                <option value="">-- Select Area --</option>
+                <option value="North">North</option>
+                <option value="South">South</option>
+                <option value="East">East</option>
+                <option value="West">West</option>
+              </Form.Select>
+            </Form.Group>
 
-        // Optional cleanup on unload
-        if (typeof window !== "undefined") {
-          const cleanup = () => URL.revokeObjectURL(previewUrl);
-          window.addEventListener("beforeunload", cleanup);
-        }
-      }
-    }}
-  />
-</Form.Group>
-
-
-          <Form.Group className="mb-3">
-            <Form.Label>Bio</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={2}
-              disabled={!tempProfile.is_active}
-              placeholder="e.g. Experienced in residential cleaning, passionate about customer satisfaction."
-              value={tempProfile.skills || ""}
-              onChange={(e) => setTempProfile({ ...tempProfile, skills: e.target.value })}
-            />
-          </Form.Group>
-
-          <Form.Group className="mb-3">
-            <Form.Label>Experience (Years)</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="e.g. 3"
-              disabled={!tempProfile.is_active}
-              value={tempProfile.experience || ""}
-              onChange={(e) => setTempProfile({ ...tempProfile, experience: e.target.value })}
-            />
-          </Form.Group>
-
-          <Form.Group className="mt-3">
-            <Form.Label>Preferred Area</Form.Label>
-            <Form.Select
-              disabled={!tempProfile.is_active}
-              value={tempProfile.preferred_areas || ""}
-              onChange={(e) => setTempProfile({ ...tempProfile, preferred_areas: e.target.value })}
-            >
-              <option value="">-- Select Area --</option>
-              <option value="North">North</option>
-              <option value="South">South</option>
-              <option value="East">East</option>
-              <option value="West">West</option>
-            </Form.Select>
-          </Form.Group>
-
-          <Form.Group className="mb-3">
-            <Form.Label>Availability</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={2}
-              disabled={!tempProfile.is_active}
-              placeholder="e.g. Weekdays 9am-6pm, Saturday mornings"
-              value={tempProfile.availability || ""}
-              onChange={(e) => setTempProfile({ ...tempProfile, availability: e.target.value })}
-            />
-          </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Availability</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={2}
+                disabled={!tempProfile.is_active}
+                placeholder="e.g. Weekdays 9am-6pm, Saturday mornings"
+                value={tempProfile.availability || ""}
+                onChange={(e) => setTempProfile({ ...tempProfile, availability: e.target.value })}
+              />
+            </Form.Group>
 
           <div className="d-flex justify-content-end">
             <Button type="submit" variant="primary">
