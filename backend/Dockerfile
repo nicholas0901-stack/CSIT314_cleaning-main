@@ -2,18 +2,18 @@
 FROM node:18
 
 # Set working directory
-WORKDIR /app/backend
+WORKDIR /app
 
 # Copy only package files first
-COPY backend/package*.json ./
+COPY package*.json ./
 
 # Install backend dependencies
 RUN npm install
 
-# ✅ Copy entire backend directory (this includes images/)
-COPY backend .   
+# ✅ Copy everything inside ./backend (since we're already in it)
+COPY . .
 
-# Optional: expose port for clarity
+# Optional: expose port
 EXPOSE 5000
 
 # Start your backend server
