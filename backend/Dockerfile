@@ -1,20 +1,20 @@
 # Use Node.js base image
 FROM node:18
 
-# Set working directory to backend folder (because your server.js is there)
+# Set working directory
 WORKDIR /app/backend
 
-# Copy only backend-specific package files
+# Copy package.json first to leverage Docker cache
 COPY backend/package*.json ./
 
-# Install dependencies for the backend
+# Install dependencies
 RUN npm install
 
-# Copy the entire backend source code (not the whole monorepo)
-COPY backend/ .
+#  Copy entire backend source, including images/
+COPY backend .    # no trailing slash on target — keeps folder structure
 
-# Expose port if needed (optional but good practice for local Docker testing)
+# Expose port for Render or local
 EXPOSE 5000
 
-# Start the backend server
+# Start the backend
 CMD ["node", "server.js"]
