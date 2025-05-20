@@ -4,17 +4,17 @@ FROM node:18
 # Set working directory
 WORKDIR /app/backend
 
-# Copy package.json first to leverage Docker cache
+# Copy only package files first
 COPY backend/package*.json ./
 
-# Install dependencies
+# Install backend dependencies
 RUN npm install
 
-#  Copy entire backend source, including images/
-COPY backend .    # no trailing slash on target — keeps folder structure
+# ✅ Copy entire backend directory (this includes images/)
+COPY backend .   
 
-# Expose port for Render or local
+# Optional: expose port for clarity
 EXPOSE 5000
 
-# Start the backend
+# Start your backend server
 CMD ["node", "server.js"]
