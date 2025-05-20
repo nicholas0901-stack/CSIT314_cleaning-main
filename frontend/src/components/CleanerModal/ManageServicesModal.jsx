@@ -26,10 +26,9 @@ const ManageServicesModal = ({
           Easily manage your cleaning services, skills, experience, and work preferences.
         </p>
 
-       
+        {(previewImageUrl || tempProfile?.image_path) && (
           <div className="text-center mb-4">
-             {(previewImageUrl || tempProfile?.image_path) && (
-           <img
+            <img
               src={previewImageUrl || `https://csit314-backend.onrender.com/${tempProfile.image_path}`}
               alt="Cleaner Profile"
               onError={(e) => {
@@ -42,7 +41,6 @@ const ManageServicesModal = ({
                 objectFit: "cover",
                 border: "2px solid #dee2e6",
               }}
-            />}
             />
           </div>
         )}
