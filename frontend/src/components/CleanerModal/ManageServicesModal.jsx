@@ -8,6 +8,7 @@ const ManageServicesModal = ({
   tempProfile,
   setTempProfile,
   previewImageUrl,
+  setPreviewImageUrl,
   services,
   newService,
   setNewService,
