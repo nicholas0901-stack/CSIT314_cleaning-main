@@ -29,24 +29,22 @@ const ManageServicesModal = ({
         {(previewImageUrl || tempProfile?.image_path) && (
           <div className="text-center mb-4">
             <img
-              src={
-                previewImageUrl ||
-                (tempProfile?.image_path
-                  ? `https://csit314-backend.onrender.com/${tempProfile.image_path}`
-                  : "https://csit314-backend.onrender.com/images/default.jpg")
-              }
-              alt="Cleaner Profile"
+              src={previewImageUrl || `https://csit314-backend.onrender.com/${tempProfile.image_path || "images/default.jpg"}`}
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.src = "https://csit314-backend.onrender.com/images/default.jpg";
               }}
+              alt="Cleaner Profile"
+              className="card-img-top"
               style={{
-                width: "380px",
-                height: "500px",
-                objectFit: "cover",
-                border: "2px solid #dee2e6",
+                height: "230px",
+                objectFit: "contain",
+                backgroundColor: "#f8f9fa",
+                borderTopLeftRadius: "0.5rem",
+                borderTopRightRadius: "0.5rem",
               }}
             />
+
           </div>
         )}
 
@@ -150,30 +148,36 @@ const ManageServicesModal = ({
             </Form.Group>
           </div>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Upload Profile Image</Form.Label>
-            <Form.Control
-              type="file"
-              accept="image/*"
-              disabled={!tempProfile.is_active}
-              onChange={(e) => {
-                const file = e.target.files[0];
-                if (file) {
-                  setTempProfile((prev) => ({
-                    ...prev,
-                    imageFile: file
-                  }));
-                  const previewUrl = URL.createObjectURL(file);
-                  // Update image preview
-                  if (typeof window !== "undefined") {
-                    const cleanup = () => URL.revokeObjectURL(previewUrl);
-                    window.addEventListener("beforeunload", cleanup);
-                  }
-                  // You will also need a useEffect in parent to call setPreviewImageUrl(previewUrl)
-                }
-              }}
-            />
-          </Form.Group>
+         <Form.Group className="mb-3">
+  <Form.Label>Upload Profile Image</Form.Label>
+  <Form.Control
+    type="file"
+    accept="image/*"
+    disabled={!tempProfile.is_active}
+    onChange={(e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const previewUrl = URL.createObjectURL(file);
+
+        // Set imageFile into tempProfile
+        setTempProfile((prev) => ({
+          ...prev,
+          imageFile: file
+        }));
+
+        // Set preview image URL for display
+        setPreviewImageUrl(previewUrl);
+
+        // Optional cleanup on unload
+        if (typeof window !== "undefined") {
+          const cleanup = () => URL.revokeObjectURL(previewUrl);
+          window.addEventListener("beforeunload", cleanup);
+        }
+      }
+    }}
+  />
+</Form.Group>
+
 
           <Form.Group className="mb-3">
             <Form.Label>Bio</Form.Label>
