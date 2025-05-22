@@ -26,7 +26,7 @@ const ManageUsersModal = ({
       return;
     }
 
-    fetch('http://localhost:5000/api/users', {
+    fetch('https://csit314-backend.onrender.com/api/users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newUser)
@@ -47,7 +47,7 @@ const ManageUsersModal = ({
     const updateData = { role: editRole };
     if (editPassword) updateData.password = editPassword;
 
-    fetch(`http://localhost:5000/api/users/${editingUser.id}`, {
+    fetch(`https://csit314-backend.onrender.com/api/users/${editingUser.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updateData)
