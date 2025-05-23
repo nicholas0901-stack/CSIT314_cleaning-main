@@ -7,13 +7,15 @@ class ReportController {
       const { reportType } = req.query;
   
       let dateCondition = "";
-      if (reportType === "daily") {
-        dateCondition = "DATE(b.created_at) = DATE('now')";
-      } else if (reportType === "weekly") {
-        dateCondition = "b.created_at >= DATE('now', '-7 days')";
-      } else if (reportType === "monthly") {
-        dateCondition = "b.created_at >= DATE('now', 'start of month')";
-      }
+     if (reportType === "daily") {
+      dateCondition = "DATE(b.created_at, 'localtime') = DATE('now', 'localtime')";
+    } else if (reportType === "weekly") {
+      dateCondition = "b.created_at >= DATETIME('now', '-7 days', 'localtime')";
+    } else if (reportType === "monthly") {
+      dateCondition = "b.created_at >= DATE('now', 'start of month', 'localtime')";
+    }
+
+
   
       const sql = `
         SELECT 
