@@ -108,7 +108,7 @@ const ManageUsersModal = ({
                       variant="outline-danger"
                       size="sm"
                       onClick={() => {
-                        fetch(`http://localhost:5000/api/users/${user.id}`, {
+                        fetch(`https://csit314-backend.onrender.com/api/users/${user.id}`, {
                           method: 'DELETE'
                         })
                           .then(res => res.json())
