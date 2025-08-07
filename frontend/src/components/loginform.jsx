@@ -19,7 +19,7 @@ const LoginForm = () => {
     }
   
     try {
-      const loginResponse = await fetch('https://csit314-backend.onrender.com/api/login', {
+      const loginResponse = await fetch('http://54.160.151.72:5000/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
